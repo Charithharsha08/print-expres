@@ -10,7 +10,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 function AuthGuard() {
   const { user, profile, initialized } = useAuthStore();
   const segments = useSegments();
-
   useEffect(() => {
     if (!initialized) return;
 

@@ -8,6 +8,7 @@ import {
   TextInputProps,
 } from 'react-native';
 import { COLORS, RADIUS, SPACING } from '../../constants/theme';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 interface InputProps extends Omit<TextInputProps, 'style'> {
   label?: string;
@@ -61,38 +62,52 @@ const Input: React.FC<InputProps> = ({
         {leftIcon && <View style={styles.iconLeft}>{leftIcon}</View>}
 
         <TextInput
-          style={[
-            styles.input,
-            leftIcon ? styles.inputPadLeft : null,
-            rightIcon || isPassword ? styles.inputPadRight : null,
-            multiline && styles.inputMulti,
-            inputStyle,
-          ]}
-          value={value}
-          onChangeText={onChangeText}
-          placeholder={placeholder}
-          placeholderTextColor={COLORS.textMuted}
-          secureTextEntry={isPassword && !showPassword}
-          keyboardType={keyboardType}
-          autoCapitalize={autoCapitalize}
-          editable={editable}
-          multiline={multiline}
-          numberOfLines={multiline ? numberOfLines : undefined}
-          maxLength={maxLength}
-          onFocus={() => { setFocused(true); onFocus?.({} as any); }}
-          onBlur={() => { setFocused(false); onBlur?.({} as any); }}
-          {...rest}
-        />
+  style={[
+    styles.input,
+    leftIcon ? styles.inputPadLeft : null,
+    rightIcon || isPassword ? styles.inputPadRight : null,
+    multiline && styles.inputMulti,
+    inputStyle,
+  ]}
+  value={value}
+  onChangeText={onChangeText}
+  placeholder={placeholder}
+  placeholderTextColor={COLORS.textMuted}
+  secureTextEntry={isPassword && !showPassword}
+  keyboardType={keyboardType}
+  autoCapitalize={autoCapitalize}
+  autoCorrect={false}
+  editable={editable}
+  multiline={multiline}
+  numberOfLines={multiline ? numberOfLines : undefined}
+  maxLength={maxLength}
+  onFocus={(e) => {
+    setFocused(true);
+    onFocus?.(e);
+  }}
+  onBlur={(e) => {
+    setFocused(false);
+    onBlur?.(e);
+  }}
+  {...rest}
+/>
 
-        {isPassword && (
-          <TouchableOpacity
-            style={styles.iconRight}
-            onPress={() => setShowPassword((v) => !v)}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          >
-            <Text style={styles.eyeIcon}>{showPassword ? '🙈' : '👁️'}</Text>
-          </TouchableOpacity>
-        )}
+       {isPassword ? (
+  <TouchableOpacity
+    style={styles.iconRight}
+    onPress={() => setShowPassword((v) => !v)}
+    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+    activeOpacity={0.7}
+  >
+    <Ionicons
+      name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+      size={22}
+      color={COLORS.textMuted}
+    />
+  </TouchableOpacity>
+) : rightIcon ? (
+  <View style={styles.iconRight}>{rightIcon}</View>
+) : null}
 
         {rightIcon && !isPassword && (
           <View style={styles.iconRight}>{rightIcon}</View>
@@ -126,15 +141,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8FAFC', // softer slate background when inactive
     minHeight: 48,
   },
-  focused:   {
-    borderColor: COLORS.primary,
-    backgroundColor: COLORS.surface,
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 6,
-    elevation: 2,
-  },
+  focused: {
+  borderColor: COLORS.primary,
+  backgroundColor: COLORS.surface,
+},
   errored:   { borderColor: COLORS.error, backgroundColor: COLORS.surface },
   disabled:  { backgroundColor: COLORS.surfaceAlt, opacity: 0.7 },
   multiline: { alignItems: 'flex-start', minHeight: 100 },

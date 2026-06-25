@@ -68,7 +68,7 @@ export default function LoginScreen() {
     <SafeAreaView style={styles.safe}>
       <KeyboardAvoidingView
         style={styles.kav}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <ScrollView
           contentContainerStyle={styles.scroll}
@@ -87,9 +87,9 @@ export default function LoginScreen() {
             <Text style={styles.subtitle}>Sign in to your PrintXpress account</Text>
           </Animated.View>
 
-          {/* Form Card */}
-          <Animated.View 
-            entering={FadeInDown.duration(600).delay(200).springify()}
+          {/* Form Card */} 
+          {/* <Animated.View  */}
+          <View 
             style={styles.formCard}
           >
             <Input
@@ -145,7 +145,7 @@ export default function LoginScreen() {
                 style={{ marginTop: SPACING.sm }}
               />
             </View>
-          </Animated.View>
+          </View>
 
           {/* Footer */}
           <Animated.View 

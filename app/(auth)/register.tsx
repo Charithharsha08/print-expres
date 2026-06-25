@@ -111,8 +111,8 @@ export default function RegisterScreen() {
           </Animated.View>
 
           {/* Form Card */}
-          <Animated.View 
-            entering={FadeInDown.duration(600).delay(200).springify()}
+          <View 
+            // entering={FadeInDown.duration(600).delay(200).springify()}
             style={styles.formCard}
           >
             <Input
@@ -173,7 +173,7 @@ export default function RegisterScreen() {
               size="lg"
               style={{ marginTop: SPACING.sm }}
             />
-          </Animated.View>
+          </View>
 
           {/* Footer */}
           <Animated.View 

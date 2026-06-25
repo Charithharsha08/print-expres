@@ -16,10 +16,7 @@ export default function CustomerLayout() {
           shadowColor: '#0F172A',
           shadowOffset: { width: 0, height: -4 },
           shadowOpacity: 0.05,
-          shadowRadius: 12,
-          height: 62,
-          paddingBottom: 8,
-          paddingTop: 8,
+          shadowRadius: 12
         },
         tabBarLabelStyle: { fontSize: 11, fontWeight: '600', marginTop: 2 },
       }}
